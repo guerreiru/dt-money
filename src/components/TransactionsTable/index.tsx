@@ -1,10 +1,10 @@
-import React from "react";
-import { Container } from "./styles";
-import { TransactionsContext } from "../../TransactionsContext";
+import React from 'react';
+import { Container } from './styles';
+import { useTransactions } from '../../hooks/useTransactions';
 
 function TransactionsTable() {
-  const {transactions} = React.useContext(TransactionsContext)
-  
+  const { transactions } = useTransactions();
+
   return (
     <Container>
       <table>
@@ -22,15 +22,15 @@ function TransactionsTable() {
             <tr key={transaction.id}>
               <td>{transaction.title}</td>
               <td className={transaction.type}>
-                {transaction.type === 'deposity' ? '' : '-'}
-                {new Intl.NumberFormat("pt-BR", {
-                  style: "currency",
-                  currency: "BRL",
+                {transaction.type === 'deposit' ? '' : '-'}
+                {new Intl.NumberFormat('pt-BR', {
+                  style: 'currency',
+                  currency: 'BRL',
                 }).format(transaction.amount)}
               </td>
               <td>{transaction.category}</td>
               <td>
-                {new Intl.DateTimeFormat("pt-BR", {}).format(
+                {new Intl.DateTimeFormat('pt-BR', {}).format(
                   new Date(transaction.createdAt)
                 )}
               </td>
