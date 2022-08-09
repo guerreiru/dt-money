@@ -23,6 +23,11 @@ function NewTransactionModal({
 
   async function handleCreateNewTransaction(event: FormEvent) {
     event.preventDefault();
+
+    if (title.length === 0 || amount <= 0 || category.length === 0) {
+      return;
+    }
+
     await createTransaction({
       title,
       amount,
@@ -55,6 +60,7 @@ function NewTransactionModal({
           placeholder='Título'
           value={title}
           onChange={({ target }) => setTitle(target.value)}
+          required
         />
         <input
           type='number'
@@ -94,7 +100,17 @@ function NewTransactionModal({
           placeholder='Categoria'
           value={category}
           onChange={({ target }) => setCategory(target.value)}
+          list='category'
         />
+        <datalist id='category'>
+          <option value='Casa' />
+          <option value='Alimentação' />
+          <option value='Educação' />
+          <option value='Lazer' />
+          <option value='Saúde' />
+          <option value='Transporte' />
+          <option value='Outros' />
+        </datalist>
         <button type='submit'>Cadastrar</button>
       </Container>
     </Modal>
